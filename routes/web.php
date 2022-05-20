@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Form;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,15 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/add',[Form::class,'index'] );
 
-});
+Route::get('/',[Form::class,'allevents'] );
 
-Route::get('/form', function () {
-    return view('form');
-});
+Route::post('/add',[Form::class,'store']);
 
+Route::get('/events',[Form::class,'all']);
 
+Route::get('/register',[UserController::class,'create']);
 
-;
+Route::post('/register',[UserController::class,'store']);
