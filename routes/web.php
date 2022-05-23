@@ -26,3 +26,11 @@ Route::get('/events',[Form::class,'all']);
 Route::get('/register',[UserController::class,'create']);
 
 Route::post('/register',[UserController::class,'store']);
+
+Route::get('/login',[UserController::class,'createLogin']);
+
+Route::post('/login',[UserController::class,'checkUsers']);
+
+Route::get('/logout',[UserController::class,'logout']);
+
+
