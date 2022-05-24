@@ -9,6 +9,9 @@
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <link href="../../css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
+
     <title>@yield('title', 'Events')</title>
 </head>
 
@@ -23,19 +26,22 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/add">Add event</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/add">Add event</a>
+                            </li>
+                        @endauth
+
                         <li class="nav-item">
                             <a class="nav-link" href="/events">Events</a>
                         </li>
                         @auth
-                        <li class="nav-item ms-1">
-                            <a class="nav-link btn btn-primary" href="#">Bonjour{{Auth::user()->name }}</a>
-                        </li>
-                        <li class="nav-item ms-1">
-                            <a class="nav-link btn btn-danger" href="/login">Log out</a>
-                        </li>
+                            <li class="nav-item ms-1">
+                                <a class="nav-link " href="#">{{ Auth::user()->email }}</a>
+                            </li>
+                            <li class="nav-item ms-1">
+                                <a class="nav-link btn btn-danger" href="/logout">Log out</a>
+                            </li>
                         @endauth
                         @unless(Auth::check())
                             <li class="nav-item">
@@ -47,13 +53,17 @@
                         @endunless
                     </ul>
                 </div>
+
             </div>
         </nav>
-    </header>
-    <div class="my-2">
-        @yield('content')
-    </div>
 
+    </header>
+
+    <div class="my-2">
+        <main>
+            @yield('content')
+        </main>
+    </div>
     {{-- script --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">

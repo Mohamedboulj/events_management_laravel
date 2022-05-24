@@ -28,11 +28,11 @@ class UserController extends Controller
 
     }
     public function create(){
-        return view('authentification');
+        return view('auth.authentification');
 
     }
     public function createLogin(){
-        return view('login');
+        return view('auth.login');
     }
 
 
@@ -46,15 +46,14 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/add');
+            return redirect()->intended('/')->with(['user'=>Auth::user()]);
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-    public function logout(Request $request)
-{
+    public function logout(Request $request){
     Auth::logout();
 
     $request->session()->invalidate();
@@ -62,6 +61,6 @@ class UserController extends Controller
     $request->session()->regenerateToken();
 
     return redirect('/');
-}
+ }
 
 }

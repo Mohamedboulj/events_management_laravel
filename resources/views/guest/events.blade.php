@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('dashboard.layouts.app')
 @section('title','Coming events')
 @section('content')
 <div class="my-2">

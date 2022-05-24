@@ -33,4 +33,12 @@ Route::post('/login',[UserController::class,'checkUsers']);
 
 Route::get('/logout',[UserController::class,'logout']);
 
+Route::get('delete/{id}',[Form::class,'delete'])->name('events.delete');
+
+Route::get('edit/{id}',[Form::class,'edit'])->name('events.edit');
+
+Route::post('update/{id}',[Form::class,'update'])->name('events.update');
+
+
+
 
