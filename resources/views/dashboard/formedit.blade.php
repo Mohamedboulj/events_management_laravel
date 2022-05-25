@@ -13,7 +13,7 @@
     </div>
     @endif
     <div class="card-body">
-        <form action="{{ route('events.edit',$event->id) }}" enctype="multipart/form-data" method="post">
+        <form action="{{ route('events.update',$event->id) }}" enctype="multipart/form-data" method="post">
         @csrf
             <div class="form-group">
                 <div form-group>

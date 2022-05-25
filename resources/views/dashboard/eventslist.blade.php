@@ -120,6 +120,15 @@
                         <table class="table table-responsive table-bordered table-sm shadow mx-auto ">
                             <thead>
                                 <tr>
+                                    <td  colspan="7">
+                                    <form class="d-flex justify-content-end" type="get" action="{{url('search')}}">
+                                        <input class="form-control w-25 me-2" name="query" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success" type="submit">Search</button>
+                                    </form>
+                                    </td>
+
+                                </tr>
+                                <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Description</th>
@@ -145,7 +154,7 @@
                                         </td>
                                         <td class="p-2  ">
 
-                                            <a href="{{ route('events.update', $event->id) }}" class="text-center btn btn-info btn-sm mx-1">
+                                            <a href="{{ route('events.edit', $event->id) }}" class="text-center btn btn-info btn-sm mx-1">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
                                             <a href="{{ route('events.delete', $event->id) }}"

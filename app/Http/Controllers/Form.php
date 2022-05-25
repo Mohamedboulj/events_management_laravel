@@ -30,8 +30,11 @@ class Form extends Controller
         ]);
             if($request->hasFile('event_picture')){
                 $path = $request->file('event_picture')->store('public/img','public');
+
+            }else {
+                $path='';
             }
-            $path='';
+
             $event = new Event();
             $event->event_name = $request->event_name;
             $event->event_description = $request->event_description;
@@ -68,17 +71,21 @@ class Form extends Controller
         $event= Event::find($id);
         if(!$event)
         return redirect()->back();
-        $event->updated($request->all());
-        return redirect()->back();
-        // $event ->update([
-        //     event_name=>$request->event_name,
-        //     event_description=>$event->event_description,
-        //     event_place=>$event->event_place,
-        //     event_date=>$request->event_date,
-        //     event_picture=>$request->event_picture,
+        $event->update([
+            $event->event_name = $request->event_name,
+            $event->event_place = $request->event_place,
+            $event->event_description = $request->event_description,
+            $event->event_date = $request->event_date,
+            $event->event_picture = $request->event_picture
+        ]);
+        return redirect('/');
+    }
 
-        // ]);
-
+    public function search(Request $request){
+        $search_text = $request->get('query');
+        $events =Event::where('event_name','LIKE','%'.$search_text.'%')->orWhere('event_place','LIKE','%'.$search_text.'%')->orWhere('event_description','LIKE','%'.$search_text.'%')->get();
+        return view(view:'dashboard.eventslist',data:compact('events'));
     }
 
 }
+

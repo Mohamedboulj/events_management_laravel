@@ -39,6 +39,8 @@ Route::get('edit/{id}',[Form::class,'edit'])->name('events.edit');
 
 Route::post('update/{id}',[Form::class,'update'])->name('events.update');
 
+Route::get('search',[Form::class,'search']);
+
 
 
 
