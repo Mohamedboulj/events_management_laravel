@@ -14,11 +14,13 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'email' => 'required|unique:users,email',
-            'password' => 'required',
+            'name' => 'required',
+            'password' => 'required'
         ]);
 
         $user= new User();
         $user->email = $request->email;
+        $user->name = $request->name;
         $user->password = Hash::make($request->password); //hashing password
 
         $user->save();
@@ -61,6 +63,22 @@ class UserController extends Controller
     $request->session()->regenerateToken();
 
     return redirect('/');
- }
+    }
+    public function allusers(){
+    $users = User::paginate(5);
+    return view('dashboard.userslist',["users"=>$users]);
+    }
+    public function delete($id){
+        //check if user id exists in db
+        $user = User::find($id);
+
+        if(!$user)
+        return redirect()->back()->with(['error'=>'User don\'t exist']);
+        $user->delete();
+        return redirect()->back()->with(['success'=>'User deleted with success']);
+
+    }
+
+
 
 }

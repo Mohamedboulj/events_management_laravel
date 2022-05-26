@@ -7,13 +7,13 @@
             @csrf
             <div class="text-center"><h3 class="text-center mb-3">Login</h3><h5>You don't have an account?</h5><a href="/register" class="text-center">register</a></div>
 
-            <div class="form-floating">
-                <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput" name="email" placeholder="name@example.com">
+            <div class="form-floating mt-2">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="floatingInput" name="email" placeholder="name@example.com" value="{{ old('email') }}">
                 <label class="form-label" for="floatingInput">Email address</label>
             </div>
-            @error('email')
+            {{-- @error('email')
                 <div class="alert alert-danger mt-2">{{ $message }}</div>
-            @enderror
+            @enderror --}}
             <div class="form-floating my-2">
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="floatingPassword" name="password" placeholder="Password">
                 <label class="form-label" for="floatingPassword">Password</label>

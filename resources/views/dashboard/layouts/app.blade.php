@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <link href="../../css/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
     <title>@yield('title', 'Events')</title>
 </head>

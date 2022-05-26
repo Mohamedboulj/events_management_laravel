@@ -15,14 +15,14 @@ class Form extends Controller
         return view('guest.events',["events"=>$events]);
     }
     public function allevents(){
-        $events = Event::all();
+        $events = Event::paginate(5);
         return view('dashboard.eventslist',["events"=>$events]);
     }
 
 
     public function store(Request $request){
 
-            $validated = $request->validate([
+            $request->validate([
             'event_name' => 'required',
             'event_place' => 'required',
             'event_date' => 'required',
@@ -41,7 +41,7 @@ class Form extends Controller
             $event->event_place = $request->event_place;
             $event->event_date = $request->event_date;
             $event->event_picture = 'storage/'.$path;
-            $event->save();
+            $event->save(); // on peut aussi utiliser create($request->all) a la place de save()
             return redirect('/')->with('status', 'event added!');
 
     }
@@ -52,7 +52,7 @@ class Form extends Controller
         if(!$event)
         return redirect()->back()->with(['error'=>'event don\'t exist']);
         $event->delete();
-        return redirect('/')->with(['success'=>'Event deleted with success']);
+        return redirect()->back()->with(['success'=>'Event deleted with success']);
 
     }
     public function edit($id){
@@ -82,9 +82,19 @@ class Form extends Controller
     }
 
     public function search(Request $request){
+
         $search_text = $request->get('query');
-        $events =Event::where('event_name','LIKE','%'.$search_text.'%')->orWhere('event_place','LIKE','%'.$search_text.'%')->orWhere('event_description','LIKE','%'.$search_text.'%')->get();
-        return view(view:'dashboard.eventslist',data:compact('events'));
+        if($search_text != '')
+    {
+        // $events =Event::where('event_name','LIKE','%'.$search_text.'%')->orWhere('event_place','LIKE','%'.$search_text.'%')->orWhere('event_description','LIKE','%'.$search_text.'%')->get(); //gets the result without pagination feature
+        $events =Event::where('event_name','LIKE','%'.$search_text.'%')->orWhere('event_place','LIKE','%'.$search_text.'%')->orWhere('event_description','LIKE','%'.$search_text.'%')->paginate(5);
+        if (count($events)> 0) {
+            return view(view:'dashboard.eventslist',data:compact('events'));
+        }
+        // return redirect('/')->with(['error'=>'No results Found', '$events'=>[]]);
+    }
+    return view('dashboard.eventslist',['error'=>'No results Found','events'=> $events] );
+
     }
 
 }
